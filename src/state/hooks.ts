@@ -2,9 +2,10 @@ import BigNumber from 'bignumber.js'
 import { useEffect, useMemo } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import useRefresh from 'hooks/useRefresh'
-import { fetchFarmsPublicDataAsync, fetchPoolsPublicDataAsync, fetchPoolsUserDataAsync } from './actions'
-import { State, Farm, Pool } from './types'
+import { fetchFarmsPublicDataAsync, fetchPoolsPublicDataAsync, fetchPoolsUserDataAsync, fetchIdoPublicDataAsync } from './actions'
+import { State, Farm, Pool, IDO } from './types'
 import { QuoteToken } from '../config/constants/types'
+// import { fetchIdoPublicDataAsync } from './idos'
 
 const ZERO = new BigNumber(0)
 
@@ -13,8 +14,31 @@ export const useFetchPublicData = () => {
   const { slowRefresh } = useRefresh()
   useEffect(() => {
     dispatch(fetchFarmsPublicDataAsync())
+    dispatch(fetchIdoPublicDataAsync())
     // dispatch(fetchPoolsPublicDataAsync())
   }, [dispatch, slowRefresh])
+}
+
+
+// export const usefetchIdoPublicData = () => {
+//   const dispatch = useDispatch()
+//   const { slowRefresh } = useRefresh()
+//   useEffect(() => {
+//     dispatch(fetchIdoPublicDataAsync())
+    
+//   }, [dispatch, slowRefresh])
+
+// }
+
+
+export const useIDOs = (): IDO[] => {
+  const Ido = useSelector((state: State) => state.idos.data)
+  return Ido
+}
+
+export const useIdoFromContract = (contractAddress): IDO => {
+  const ido = useSelector((state: State) => state.idos.data.find((f) => f.contractAddress === contractAddress))
+  return ido
 }
 
 // Farms
@@ -95,9 +119,9 @@ export const useTotalValue = (): BigNumber => {
       let val;
       if (farm.quoteTokenSymbol === QuoteToken.BNB) {
         val = (bnbPrice.times(farm.lpTotalInQuoteToken));
-      }else if (farm.quoteTokenSymbol === QuoteToken.CAKE) {
+      } else if (farm.quoteTokenSymbol === QuoteToken.CAKE) {
         val = (cakePrice.times(farm.lpTotalInQuoteToken));
-      }else{
+      } else {
         val = (farm.lpTotalInQuoteToken);
       }
       value = value.plus(val);

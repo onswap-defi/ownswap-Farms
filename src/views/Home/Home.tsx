@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components'
+import React,{useEffect} from 'react'
+import styled, { ThemeConsumer } from 'styled-components'
 import { Heading, Text, BaseLayout } from '@pancakeswap-libs/uikit'
 import useI18n from 'hooks/useI18n'
 import Page from 'components/layout/Page'
@@ -60,8 +60,16 @@ ${({ theme }) => theme.mediaQueries.sm}{
   margin-top: 2rem;
 `;
 
+// useEffect(
+//   ()=>{
+//     let isDark = localStorage.getItem("IS_DARK") === "true";
+//   },[]
+// )
+
 const Home: React.FC = () => {
   const TranslateString = useI18n()
+
+  
 
   return (
     <Page>
@@ -70,7 +78,8 @@ const Home: React.FC = () => {
           {TranslateString(576, 'Goose Finance')}
         </Heading>
         <Text>{TranslateString(578, 'Top 3 best DEFI app on Binance Smart Chain.')}</Text> */}
-        <img src="/images/logowithblackbackground.png" alt="onlogo" style={{width:"17rem",borderRadius:"1.5rem"}} />
+        {/* <img src="/images/logowithblackbackground.png" alt="onlogo" style={{width:"17rem",borderRadius:"1.5rem"}} /> */}
+        <img src={localStorage.getItem("IS_DARK") === "true" ? '/images/logowithblackbackground.png': '/images/mainlogolight.png'} alt="On Swap" style={{width:"17rem",borderRadius:"1.5rem",border:"0.2rem solid black"}} />
       </Hero> 
       <Div>
         <Cards>

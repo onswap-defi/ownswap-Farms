@@ -58,6 +58,28 @@ export interface FarmConfig {
   }
 }
 
+export interface IDOConfig {
+  startDate?: string
+  endDate?: string
+  productName?: string
+  contractAddress?:string
+  productLogo?:string
+  tokenAddress?: string
+  buyingToken?: string
+  status?: string
+  price?: number
+  description?:string
+  websiteLink?: string
+  socialMedia?: {
+    telegram?: string
+    facebook?: string
+    youtube?: string
+    twitter?: string
+    redit?: string
+    medium?: string
+  }
+}
+
 export interface PoolConfig {
   sousId: number
   image?: string

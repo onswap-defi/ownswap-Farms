@@ -2,6 +2,11 @@ import { MenuEntry } from '@pancakeswap-libs/uikit'
 
 const config: MenuEntry[] = [
   {
+    label: 'IDO',
+    icon: 'IfoIcon',
+    href: '/ido',
+  },
+  {
     label: 'Home',
     icon: 'HomeIcon',
     href: '/',
@@ -30,11 +35,7 @@ const config: MenuEntry[] = [
     icon: 'PoolIcon',
     href: '/nests',
   },
-  {
-    label: 'IDO',
-    icon: 'IfoIcon',
-    href: '/ido',
-  },
+  
   // {
   //   label: 'Pools',
   //   icon: 'PoolIcon',

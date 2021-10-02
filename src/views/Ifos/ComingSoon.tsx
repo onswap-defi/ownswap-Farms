@@ -20,6 +20,8 @@ const Content = styled(Container)`
 
 const Block = styled.div`
   margin-bottom: 32px;
+
+
 `
 
 const MainImage = styled.img`
@@ -73,10 +75,10 @@ const ComingSoon = () => {
               <strong>{TranslateString(510, 'You get the tokens.')}</strong>
             </Text>
           </Block>
-          <MobileImage src="/images/ifo-bunny.svg" alt="ifo bunny" />
+          <MobileImage src="/images/logo.png" alt="On Swap" />
           <Block>
-            <Title as="h2">{TranslateString(512, 'Want to launch your own IFO?')}</Title>
-            <Text mb={3}>
+            <Title as="h2">{TranslateString(512, 'Want to launch your own IDO?')}</Title>
+            <Text mb={3} >
               {TranslateString(
                 514,
                 'Launch your project with PancakeSwap, Binance Smart Chain’s most-used AMM project and liquidity provider, to bring your token directly to the most active and rapidly growing community on BSC.',
@@ -92,9 +94,9 @@ const ComingSoon = () => {
             </Button>
           </Block>
         </div>
-        <div>
-          <MainImage src="/images/ifo-bunny.svg" alt="ifo bunny" />
-        </div>
+        {/* <div>
+          <MainImage src="/images/logo.png" alt="On Swap" />
+        </div> */}
       </Content>
     </Page>
   )

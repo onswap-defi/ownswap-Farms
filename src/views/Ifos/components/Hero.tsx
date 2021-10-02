@@ -5,12 +5,12 @@ import Container from 'components/layout/Container'
 import useI18n from 'hooks/useI18n'
 
 const Title = styled(Heading).attrs({ as: 'h1', size: 'xl' })`
-  color:#000;
+  color: ${({ theme }) => theme.colors.text};
   margin-bottom: 24px;
 `
 
 const Blurb = styled(Text)`
-  color: #000;
+color: ${({ theme }) => theme.colors.text};
   text-align:center;
   font-size: 20px;
   font-weight: 600;
@@ -30,7 +30,7 @@ const Hero = () => {
   return (
     <StyledHero>
       <Container>
-        <Title>{TranslateString(500, 'IFO: Initial Farm Offerings')}</Title>
+        <Title>{TranslateString(500, 'IDO: Initial Dex Offering')}</Title>
         <Blurb>{TranslateString(502, 'Buy new tokens with a brand new token sale model.')}</Blurb>
       </Container>
     </StyledHero>

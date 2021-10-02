@@ -2,6 +2,8 @@ import React, { useEffect, Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
 import { ResetCSS } from '@pancakeswap-libs/uikit'
+import Ido from 'views/Ido'
+import SingleIdo from 'views/SingleIdo'
 import BigNumber from 'bignumber.js'
 import { useFetchPublicData } from 'state/hooks'
 import GlobalStyle from './style/Global'
@@ -27,6 +29,7 @@ BigNumber.config({
 
 const App: React.FC = () => {
   const { account, connect } = useWallet()
+
   useEffect(() => {
     if (!account && window.localStorage.getItem('accountStatus')) {
       connect('injected')
@@ -34,6 +37,7 @@ const App: React.FC = () => {
   }, [account, connect])
 
   useFetchPublicData()
+  // usefetchIdoPublicData()
 
   return (
     <Router>
@@ -49,7 +53,7 @@ const App: React.FC = () => {
               <Farms />
             </Route>
             <Route path="/nests">
-              <Farms tokenMode/>
+              <Farms tokenMode />
             </Route>
             {/* <Route path="/pools"> */}
             {/*  <Pools /> */}
@@ -57,8 +61,11 @@ const App: React.FC = () => {
             {/* <Route path="/lottery"> */}
             {/*  <Lottery /> */}
             {/* </Route> */}
-            <Route path="/ido">
-             <Ifos />
+            <Route exact path="/ido">
+              <Ido />
+            </Route>
+            <Route path="/ido/:contractAddress">
+              <SingleIdo  />
             </Route>
             {/* <Route path="/nft"> */}
             {/*  <Nft /> */}

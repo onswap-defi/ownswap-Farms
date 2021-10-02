@@ -24,30 +24,81 @@ const LaunchIfoCallout = styled(BaseLayout)`
 `
 const Takepart = styled.div`
 
-background:${({ theme }) => theme.colors.textDisabled};
+display: flex;
+flex-direction: column;
+align-items:center;
+padding: 1rem;
+
+${({ theme }) => theme.mediaQueries.sm}{
+  background:${({ theme }) => theme.colors.textDisabled};
 text-align:center;
 background-image:url('/images/lightCount.png');
 background-repeat:no-repeat;
-background-size:100px;
+ background-size:80px;
 background-position:center 64%;
-${({ theme }) => theme.mediaQueries.lg} {
- padding:2%;
- background-image:url('/images/lightCount.png');
-background-repeat:no-repeat;
-background-size:82px;
-background-position:center 64%;
- background-size:82px;
+padding: 2rem;
+
+// ${({ theme }) => theme.mediaQueries.lg} {
+//  padding:2rem;
+//  background-image:url('/images/lightCount.png');
+// background-repeat:no-repeat;
+//  background-size: 78px;
+// background-position:center 64%;
+// }
 }
 `;
 const Box = styled.div`
-
+${({ theme }) => theme.mediaQueries.sm}{
+  display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
 border-radius:15px;
 background:${({ theme }) => theme.colors.card};
 box-shadow:0 0 12px 2px ${({ theme }) => theme.colors.textSubtle};
 min-width:150px;
-padding:5%;
+padding:1rem;
 vertical-align:middle;
 text-align:left;
+width: 20rem;
+margin-top: 0;
+margin-right: 55%;
+}
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+border-radius:15px;
+background:${({ theme }) => theme.colors.card};
+box-shadow:0 0 12px 2px ${({ theme }) => theme.colors.textSubtle};
+min-width:150px;
+padding:1rem;
+vertical-align:middle;
+text-align:left;
+width: 20rem;
+  margin-top: 2rem;
+  margin-right: 0;
+`;
+
+const SpecialBox = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+border-radius:15px;
+background:${({ theme }) => theme.colors.card};
+box-shadow:0 0 12px 2px ${({ theme }) => theme.colors.textSubtle};
+min-width:150px;
+padding:1rem;
+vertical-align:middle;
+text-align:left;
+width: 20rem;
+margin-left:0;
+margin-top: 2rem;
+${({ theme }) => theme.mediaQueries.sm}{
+  margin-left: 55%;
+  margin-top: 0;
+}
 `;
 const List = styled.ul`
   color: ${({ theme }) => theme.colors.text};
@@ -78,8 +129,8 @@ const Ifo = () => {
         </Text>
         {/* <img src="/images/darkCount.png" alt="count" style={{ position: "absolute", display: "block", margin: "auto", marginLeft: `${"45%"}`, marginTop: "44px", height:"25%" }} /> */}
 
-        <table style={{ width: "100%" }}>
-          <tr style={{ width: "100%", height: "200px" }}>
+        {/* <table style={{ width: "100%" }}> */}
+        {/* <tr style={{ width: "100%", height: "200px" }}>
             <td style={{ width: "33%" }} />
             <td />
             <td style={{ width: "33%", verticalAlign: "middle", paddingLeft: "2%" }}>
@@ -93,8 +144,8 @@ const Ifo = () => {
                 <UnlockButton size="sm" style={{ marginTop: "15px", minWidth: "128px", fontSize: "0.9em" }} />
               </Box>
             </td>
-          </tr>
-          <tr style={{ width: "100%", height: "200px" }}>
+          </tr> */}
+        {/* <tr style={{ width: "100%", height: "200px" }}>
             <td style={{ width: "33%", verticalAlign: "middle", paddingRight: "2%" }}>
               <Box>
                 <Text color="textSubtle" mb="10px">
@@ -107,9 +158,9 @@ const Ifo = () => {
               </Box>
             </td>
             <td />
-            <td style={{ width: "33%" }} />
+            <td style={{ width: "33%" }} /> */}
 
-          </tr>
+        {/* </tr>
           <tr style={{ width: "100%", height: "200px" }}>
             <td style={{ width: "33%" }} />
             <td />
@@ -123,8 +174,8 @@ const Ifo = () => {
                 </Text>
               </Box>
             </td>
-          </tr>
-          <tr style={{ width: "100%", height: "200px" }}>
+          </tr> */}
+        {/* <tr style={{ width: "100%", height: "200px" }}>
             <td style={{ width: "33%", verticalAlign: "middle", paddingRight: "2%" }}>
               <Box>
                 <Text color="textSubtle" mb="10px">
@@ -138,8 +189,42 @@ const Ifo = () => {
             <td />
             <td style={{ width: "33%" }} />
 
-          </tr>
-        </table>
+          </tr> */}
+        {/* </table> */}
+        <Box>
+          <Text color="textSubtle" mb="10px">
+            Connect Bsc Wallet
+          </Text>
+          <Text color="textSubtle">
+            you&apos;ll need a Binance smart chain wallet to take part
+          </Text>
+          <UnlockButton size="sm" style={{ marginTop: "15px", minWidth: "128px", fontSize: "0.9em" }} />
+        </Box>
+        <SpecialBox >
+          <Text color="textSubtle" mb="10px">
+            Get BNB
+          </Text>
+          <Text color="textSubtle">
+            BNB is needed to take part in the token sale, if you do not have BNB you can purchase from the exchange.
+          </Text>
+          <Button onClick={() => window.open('https://exchange.pharmaswap.finance')} size="sm" style={{ marginTop: "15px", minWidth: "128px", fontSize: "0.9em" }}>Purchase BNB</Button>
+        </SpecialBox>
+        <Box>
+          <Text color="textSubtle" mb="10px">
+            Deposit BNB
+          </Text>
+          <Text color="textSubtle">
+            Deposit BNB above only during a live sale. This sale segment we will only accept BNB please don&apos;t not commit any other token
+          </Text>
+        </Box>
+        <SpecialBox >
+          <Text color="textSubtle" mb="10px">
+            Claim Your Tokens
+          </Text>
+          <Text color="textSubtle">
+            After the sale finishes, you can claim your tokens
+          </Text>
+        </SpecialBox>
       </Takepart>
       <LaunchIfoCallout>
         {/* <div>
@@ -176,8 +261,8 @@ const Ifo = () => {
             </Button>
           </Text>
         </div> */}
-        <div style={{ width: "100%", display: "block", margin: "auto" }}>
-          <Image src="/images/ifo-bunny.svg" alt="ifo bunny" width={436} height={406} responsive />
+        {/* <div style={{ width: "100%", display: "block", margin: "auto" }}>
+          <Image src="/images/logowithouttext.png" alt="On Swap" width={436} height={406} responsive />
           <div>
             <Title as="h2">{TranslateString(512, 'Want to launch your own IFO?')}</Title>
             <Text mb={3} color="#000">
@@ -194,8 +279,27 @@ const Ifo = () => {
               {TranslateString(516, 'Apply to launch')}
             </Button>
           </div>
-        </div>
+        </div> */}
       </LaunchIfoCallout>
+      <div style={{ width: "100%", display: "block", margin: "auto", marginBottom:"30px" }}>
+        <img src="/images/logowithouttext.png" alt="On Swap" style={{display:"block", margin:"auto"}}  />
+        <div>
+          <Title as="h2">{TranslateString(512, 'Want to launch your own IFO?')}</Title>
+          <Text mb={3} color="#000">
+            {TranslateString(
+              514,
+              'Launch your project with PancakeSwap, Binance Smart Chain’s most-used AMM project and liquidity provider, to bring your token directly to the most active and rapidly growing community on BSC.',
+            )}
+          </Text>
+          <Button
+            as="a"
+            href="https://docs.google.com/forms/d/e/1FAIpQLScGdT5rrVMr4WOWr08pvcroSeuIOtEJf1sVdQGVdcAOqryigQ/viewform"
+            external
+          >
+            {TranslateString(516, 'Apply to launch')}
+          </Button>
+        </div>
+      </div>
     </div>
   )
 }

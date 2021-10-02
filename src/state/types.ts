@@ -1,5 +1,5 @@
 import BigNumber from 'bignumber.js'
-import { FarmConfig, PoolConfig } from 'config/constants/types'
+import { FarmConfig, PoolConfig, IDOConfig } from 'config/constants/types'
 
 export interface Farm extends FarmConfig {
   tokenAmount?: BigNumber
@@ -16,6 +16,13 @@ export interface Farm extends FarmConfig {
     earnings: BigNumber
   }
 }
+
+
+
+export interface IDO extends IDOConfig{
+  
+}
+
 
 export interface Pool extends PoolConfig {
   totalStaked?: BigNumber
@@ -39,9 +46,14 @@ export interface PoolsState {
   data: Pool[]
 }
 
+
+export interface IDOState {
+  data: IDO[]
+}
 // Global state
 
 export interface State {
   farms: FarmsState
   pools: PoolsState
+  idos:IDOState
 }

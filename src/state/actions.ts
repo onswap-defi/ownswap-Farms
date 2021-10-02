@@ -7,3 +7,7 @@ export {
   updateUserPendingReward,
   updateUserStakedBalance,
 } from './pools'
+
+export {
+  fetchIdoPublicDataAsync
+} from './idos'
