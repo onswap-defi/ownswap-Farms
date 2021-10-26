@@ -17,11 +17,11 @@ const config: MenuEntry[] = [
     items: [
       {
         label: 'Exchange',
-        href: '' // 'https://exchange.goosedefi.com/',
+        href: '', // 'https://exchange.goosedefi.com/',
       },
       {
         label: 'Liquidity',
-        href: '' // 'https://exchange.goosedefi.com/#/pool',
+        href: '', // 'https://exchange.goosedefi.com/#/pool',
       },
     ],
   },
@@ -35,7 +35,7 @@ const config: MenuEntry[] = [
     icon: 'PoolIcon',
     href: '/nests',
   },
-  
+
   // {
   //   label: 'Pools',
   //   icon: 'PoolIcon',

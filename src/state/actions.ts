@@ -9,5 +9,6 @@ export {
 } from './pools'
 
 export {
-  fetchIdoPublicDataAsync
+  fetchIdoPublicDataAsync,
+  fetchIDOUserDataASYNC
 } from './idos'

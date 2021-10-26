@@ -1,6 +1,7 @@
 import React, { useEffect, Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
+import ClaimIdo from 'views/ClaimIdo'
 import { ResetCSS } from '@pancakeswap-libs/uikit'
 import Ido from 'views/Ido'
 import SingleIdo from 'views/SingleIdo'
@@ -34,6 +35,8 @@ const App: React.FC = () => {
     if (!account && window.localStorage.getItem('accountStatus')) {
       connect('injected')
     }
+   
+
   }, [account, connect])
 
   useFetchPublicData()
@@ -64,8 +67,11 @@ const App: React.FC = () => {
             <Route exact path="/ido">
               <Ido />
             </Route>
-            <Route path="/ido/:contractAddress">
-              <SingleIdo  />
+            <Route path="/ido/:contractAddress" exact>
+              <SingleIdo />
+            </Route>
+            <Route path="/claim/:contractAddress" exact>
+              <ClaimIdo />
             </Route>
             {/* <Route path="/nft"> */}
             {/*  <Nft /> */}
@@ -82,7 +88,7 @@ const App: React.FC = () => {
           </Switch>
         </Suspense>
       </Menu>
-      <NftGlobalNotification />
+      {/* <NftGlobalNotification /> */}
     </Router>
   )
 }

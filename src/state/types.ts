@@ -9,7 +9,7 @@ export interface Farm extends FarmConfig {
   poolWeight?: number
   depositFeeBP?: number
   eggPerBlock?: number
-    userData?: {
+  userData?: {
     allowance: BigNumber
     tokenBalance: BigNumber
     stakedBalance: BigNumber
@@ -19,8 +19,11 @@ export interface Farm extends FarmConfig {
 
 
 
-export interface IDO extends IDOConfig{
-  
+export interface IDO extends IDOConfig {
+  userData?: {
+    contribution: number,
+    allowance:number
+  }
 }
 
 
@@ -55,5 +58,5 @@ export interface IDOState {
 export interface State {
   farms: FarmsState
   pools: PoolsState
-  idos:IDOState
+  idos: IDOState
 }

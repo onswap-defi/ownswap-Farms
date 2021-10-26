@@ -1,22 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { Route, useRouteMatch, useParams } from 'react-router-dom'
 import Container from 'components/layout/Container'
-import { ethers } from 'ethers'
-import { provider } from 'web3-core'
-import { useIdoFromContract, useIDOs } from 'state/hooks'
-import erc20 from 'config/abi/erc20.json'
-import { CardBody, Card, BaseLayout, Heading, Flex, Text, Button, Progress, Input } from '@pancakeswap-libs/uikit'
+import { useIdoClaimFromContract, useIdoFromContract, useIDOs } from 'state/hooks'
+import { CardBody, Card, BaseLayout, Heading, Flex, Text, Button, Progress , Input} from '@pancakeswap-libs/uikit'
 import styled from 'styled-components'
 import Page from 'components/layout/Page'
 import GetImage from 'views/Ido/Components/GetImage'
 import { useCurrentTime } from 'hooks/useTimer'
-import { useDispatch } from 'react-redux'
-import useRefresh from 'hooks/useRefresh'
-import { fetchIDOUserDataASYNC } from 'state/idos'
-import { useWallet } from '@binance-chain/bsc-use-wallet'
-import UnlockButton from 'components/UnlockButton'
-import { getContract } from 'utils/web3'
-
 
 
 const Cards = styled(BaseLayout)`
@@ -44,35 +34,10 @@ ${({ theme }) => theme.mediaQueries.lg} {
 
 const OneIdo = ({ contractAddress }) => {
 
-    const Ido = useIdoFromContract(contractAddress);
-
-
-
+    const Ido = useIdoClaimFromContract(contractAddress)
     // console.log(contractAddress);
     const currentMillis = useCurrentTime()
-    const { account, ethereum }: { account: string; ethereum: provider } = useWallet()
 
-    const BuyingTokenContract = getContract(erc20, Ido.buyingToken);
-
-    console.log(account,ethereum, "contract");
-
-
-    const handleApproval = async () => {
-        console.log(account.toLowerCase(), Ido.contractAddress, "account")
-        if (account && BuyingTokenContract) {
-            BuyingTokenContract.methods
-                .approve(Ido.contractAddress, "10000000000000000000000000000000000000000")
-                .send({ from: account })
-        }
-    }
-
-    const dispatch = useDispatch()
-    const { fastRefresh } = useRefresh()
-    useEffect(() => {
-        if (account) {
-            dispatch(fetchIDOUserDataASYNC(account))
-        }
-    }, [account, dispatch, fastRefresh])
 
     return (
         <Page>
@@ -133,72 +98,70 @@ const OneIdo = ({ contractAddress }) => {
             {Ido && <Card>
                 <CardBody>
                     <Cards>
-                        <div style={{ marginTop: "30px" }}>
+                        <div style={{marginTop:"30px"}}>
                             <Progress />
                             {/* {currentMillis} */}
-                            <Input style={{ marginTop: "20px" }} placeholder="Enter Value To Invest" />
-                            {account && Ido?.userData?.allowance.toString() !== "0" && <Button mt="30px" fullWidth onClick={() => handleApproval()}>
-                                {Ido?.idoSettled ? "Withdraw" : "Deposit"}
-                            </Button>}
-                            {account && Ido?.userData?.allowance.toString() === "0" && <Button mt="30px" fullWidth onClick={() => handleApproval()}>
-                                Approve Contract
-                            </Button>}
-                            {!account && <UnlockButton fullWidth mt="10" />
-                            }
+                            <Input style={{marginTop:"20px"}} placeholder="Enter Value To Invest"  />
+                            <Button mt="30px" fullWidth>
+                                Withdraw
+                            </Button>
+                            <Button mt="30px" fullWidth>
+                                Next Install Ment On 
+                            </Button>
                         </div>
                         <div>
-                            {/* <Flex mb="10px" style={{ width: "100%" }}>
-                                    <Text style={{ width: "50%" }}>
-                                        For Sale
-                                    </Text>
-                                    <GetImage img={singleIDO.productLogo} height="100px" />
-                                    <Heading style={{ marginLeft: "auto" }}>
-                                        -
-                                    </Heading>
-                                </Flex> */}
+                            <Flex mb="10px" style={{ width: "100%" }}>
+                                <Text style={{ width: "50%" }}>
+                                    For Sale
+                                </Text>
+                                {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
+                                <Heading style={{ marginLeft: "auto" }}>
+                                    -
+                                </Heading>
+                            </Flex>
                             <Flex mb="10px" style={{ width: "100%" }}>
                                 <Text style={{ width: "50%" }}>
                                     To Raise
                                 </Text>
                                 {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
                                 <Heading style={{ marginLeft: "auto" }}>
-                                    {Ido?.userData?.contribution}
+                                    -
                                 </Heading>
                             </Flex>
-                            {/* <Flex mb="10px" style={{ width: "100%" }}>
+                            <Flex mb="10px" style={{ width: "100%" }}>
                                 <Text style={{ width: "50%" }}>
                                     Max Investment
                                 </Text>
-                                {/* <GetImage img={singleIDO.productLogo} height="100px" /> 
+                                {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
                                 <Heading style={{ marginLeft: "auto" }}>
                                     -
                                 </Heading>
-                            </Flex> */}
-                            {/* <Flex mb="10px" style={{ width: "100%" }}>
+                            </Flex>
+                            <Flex mb="10px" style={{ width: "100%" }}>
                                 <Text style={{ width: "50%" }}>
                                     Naut Requirement
                                 </Text>
-                                // {/* <GetImage img={singleIDO.productLogo} height="100px" /> 
+                                {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
                                 <Heading style={{ marginLeft: "auto" }}>
                                     -
                                 </Heading>
-                            </Flex> */}
+                            </Flex>
                             <Flex mb="10px" style={{ width: "100%" }}>
                                 <Text style={{ width: "50%" }}>
                                     Your Contribution
                                 </Text>
                                 {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
                                 <Heading style={{ marginLeft: "auto" }}>
-                                    {Ido?.userData?.contribution}
+                                    -
                                 </Heading>
                             </Flex>
                             <Flex mb="10px" style={{ width: "100%" }}>
                                 <Text style={{ width: "50%" }}>
-                                    Total Raised
+                                    Total Raised (% of target)
                                 </Text>
                                 {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
                                 <Heading style={{ marginLeft: "auto" }}>
-                                    {Ido?.totalRaised}
+                                    -
                                 </Heading>
                             </Flex>
                             <Flex mb="10px" style={{ width: "100%" }}>

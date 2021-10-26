@@ -17,6 +17,7 @@ export interface Ifo {
   currencyAddress: string
   tokenDecimals: number
   releaseBlockNumber: number
+
 }
 
 export enum QuoteToken {
@@ -70,6 +71,9 @@ export interface IDOConfig {
   price?: number
   description?:string
   websiteLink?: string
+  buyingTokenSymbol?:string
+  totalRaised?:number
+  idoSettled?:boolean
   socialMedia?: {
     telegram?: string
     facebook?: string

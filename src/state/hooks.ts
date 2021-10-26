@@ -13,7 +13,7 @@ export const useFetchPublicData = () => {
   const dispatch = useDispatch()
   const { slowRefresh } = useRefresh()
   useEffect(() => {
-    dispatch(fetchFarmsPublicDataAsync())
+    // dispatch(fetchFarmsPublicDataAsync())
     dispatch(fetchIdoPublicDataAsync())
     // dispatch(fetchPoolsPublicDataAsync())
   }, [dispatch, slowRefresh])
@@ -37,6 +37,14 @@ export const useIDOs = (): IDO[] => {
 }
 
 export const useIdoFromContract = (contractAddress): IDO => {
+  const ido = useSelector((state: State) => state.idos.data.find((f) => f.contractAddress === contractAddress))
+  console.log(ido,"ido")
+  return ido
+}
+
+// claim ido page
+
+export const useIdoClaimFromContract = (contractAddress): IDO => {
   const ido = useSelector((state: State) => state.idos.data.find((f) => f.contractAddress === contractAddress))
   return ido
 }
