@@ -60,7 +60,7 @@ export const idoSlice = createSlice({
             state.data = state.data.map((ido) => {
 
 
-                const liveFarmData = liveFarmsData.find((f) => f.tokenAddress === ido.tokenAddress)
+                const liveFarmData = liveFarmsData.find((f) => f.contractAddress.toLowerCase() === ido.contractAddress.toLowerCase())
 
                 console.log(liveFarmData, "live data")
                 return { ...ido, ...liveFarmData }

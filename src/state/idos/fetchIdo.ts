@@ -87,6 +87,7 @@ const fetchIdo = async () => {
         obj.socialMedia = JSON.parse(obj.socialMedia);
 
       }
+      obj.contractAddress = farmConfig.contractAddress;
       obj.price = new BigNumber(price).toNumber();
       obj.startDate = new BigNumber(startDate).toNumber()*1000
       obj.endDate = new BigNumber(endDate).toNumber()*1000
