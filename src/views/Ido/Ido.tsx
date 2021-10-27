@@ -80,7 +80,7 @@ const Idos = () => {
                 </Flex>
 
                 <div style={{ marginBottom: "20px" }}>
-                  <Progress primaryStep={singleIDO?.totalRaised / singleIDO?.totalRaised} />
+                  <Progress primaryStep={(singleIDO?.totalRaised / singleIDO?.target)*100} />
                 </div>
                 <Flex mb="10px" style={{ width: "100%" }}>
                   <Heading style={{ marginRight: "auto" }}>
@@ -133,7 +133,7 @@ const Idos = () => {
                     <img alt="youtube" src="https://cliply.co/wp-content/uploads/2019/04/371903520_SOCIAL_ICONS_YOUTUBE.png" style={{ width: "40px" }} />
                   </Text>}
                   {singleIDO?.socialMedia?.twitter && <Text style={{ minWidth: "50px" }} onClick={() => { window.open(singleIDO?.socialMedia.twitter) }}>
-                    <img alt="twitter" src0-="https://e7.pngegg.com/pngimages/708/311/png-clipart-icon-logo-twitter-logo-twitter-logo-blue-social-media-thumbnail.png" style={{ width: "40px" }} />
+                    <img alt="twitter" src0-="https://cdn4.iconfinder.com/data/icons/social-media-icons-the-circle-set/48/twitter_circle-512.png" style={{ width: "40px" }} />
                   </Text>}
                   {singleIDO?.socialMedia?.redit && <Text style={{ minWidth: "50px" }} onClick={() => { window.open(singleIDO?.socialMedia.redit) }}>
                     <img alt="redit" src="https://cdn.iconscout.com/icon/free/png-256/reddit-55-432536.png" style={{ width: "40px" }} />

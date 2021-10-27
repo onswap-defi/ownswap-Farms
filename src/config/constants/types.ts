@@ -75,6 +75,7 @@ export interface IDOConfig {
   totalRaised?:number
   idoSettled?:boolean
   nextClaim?:string
+  target?:number
   socialMedia?: {
     telegram?: string
     facebook?: string

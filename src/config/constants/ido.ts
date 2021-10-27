@@ -9,7 +9,7 @@ const idos: IDOConfig[] = [
         // productLogo:"Qme7tYgS2tjRn2JsEBEnkuqVrrCLTcgXJF9V966HqtjDsg",
         // endDate: moment().format("YYYY-DD-MM"),
         // productName: "trail1",
-        contractAddress: "0x23bC52e4894DBb38291318C1326A318911e77eBA",
+        contractAddress: "0x3146959b7F7717303fBbb9641175F0e55C481fc3",
         tokenAddress: "0xc269204a6a159fbc1c6a24e82473d2c96d52bdf3",
         buyingToken: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
         // status: "NOT ACTIVE",

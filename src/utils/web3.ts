@@ -15,7 +15,8 @@ const getWeb3 = () => {
   return web3
 }
 const getContract = (abi: any, address: string, contractOptions?: ContractOptions) => {
-  const web3 = getWeb3()
+  const web3 = new Web3(Web3.givenProvider || httpProvider)
+  // const web3 = getWeb3()
   return new web3.eth.Contract((abi as unknown) as AbiItem, address, contractOptions)
 }
 

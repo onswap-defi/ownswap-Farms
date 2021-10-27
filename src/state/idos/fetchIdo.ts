@@ -57,6 +57,11 @@ const fetchIdo = async () => {
           name: 'nextClaim',
           params: [],
         },
+        {
+          address: farmConfig.contractAddress,
+          name: 'target',
+          params: [],
+        },
       ]
 
       const [
@@ -67,10 +72,11 @@ const fetchIdo = async () => {
         paymentToken,
         raisedTotal,
         idoSettled,
-        nextClaim
+        nextClaim,
+        targetToRaise
       ] = await multicall(idoAbi, calls)
 
-      console.log(projectURI, startDate, paymentToken[0], "metadata");
+      console.log(projectURI, new BigNumber(startDate).toNumber(), paymentToken[0], "metadata");
 
       const response = await ipfs.get(`/ipfs/${projectURI[0]}`);
       const dataIdo = response[0].content;
@@ -82,11 +88,12 @@ const fetchIdo = async () => {
 
       }
       obj.price = new BigNumber(price).toNumber();
-      obj.startDate = new BigNumber(startDate).toNumber()
-      obj.endDate = new BigNumber(endDate).toNumber()
-      obj.totalRaised = new BigNumber(raisedTotal).toNumber()
+      obj.startDate = new BigNumber(startDate).toNumber()*1000
+      obj.endDate = new BigNumber(endDate).toNumber()*1000
+      obj.totalRaised = new BigNumber(raisedTotal).toNumber()/10**18
       obj.idoSettled = idoSettled[0];
       obj.nextClaim = new BigNumber(nextClaim).toNumber()
+      obj.target = new BigNumber(targetToRaise).toNumber()/10**18
       const call = [
         {
           address:paymentToken[0],
@@ -98,7 +105,7 @@ const fetchIdo = async () => {
 
       const [symbol] = await multicall(erc20,call);
       
-      console.log(symbol[0],"symbol")
+      console.log(startDate,"symbol")
 
       obj.buyingTokenSymbol = symbol[0];
 

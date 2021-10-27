@@ -18,6 +18,7 @@ import { useWallet } from '@binance-chain/bsc-use-wallet'
 import UnlockButton from 'components/UnlockButton'
 import { getContract } from 'utils/web3'
 import { approve } from 'utils/callHelpers'
+import BigNumber from 'bignumber.js'
 
 
 
@@ -48,6 +49,7 @@ const OneIdo = ({ contractAddress }) => {
 
     const Ido = useIdoFromContract(contractAddress);
     const [inputValue, setinputValue] = useState("");
+    const [tokens, settokens] = useState("");
 
 
     // console.log(contractAddress);
@@ -55,13 +57,13 @@ const OneIdo = ({ contractAddress }) => {
     const { account, ethereum }: { account: string; ethereum: provider } = useWallet()
 
     const BuyingTokenContract = getContract(erc20, Ido.buyingToken);
-    const TokenContract = getContract(idoAbi, Ido.contractAddress);
+    const IDOContract = getContract(idoAbi, Ido.contractAddress);
     console.log(account, ethereum, "contract");
 
 
     const handleApproval = async () => {
         console.log(account.toLowerCase(), Ido.contractAddress, BuyingTokenContract, "account");
-        const tx = await approve(BuyingTokenContract, TokenContract, account);
+        const tx = await approve(BuyingTokenContract, IDOContract, account);
         console.log(tx, "transaction")
     }
 
@@ -69,8 +71,9 @@ const OneIdo = ({ contractAddress }) => {
     const handledepositAmount = async () => {
         if (inputValue) {
             const amount = parseInt(inputValue) * 10 ** 18;
+            console.log(account, "handleDepositAmount")
             const finalAmount = amount.toString();
-            await TokenContract.methods.buyToken(finalAmount).send({ from: account });
+            await IDOContract.methods.buyToken(finalAmount).send({ from: account });
         }
         else {
             alert("Enter Input Value")
@@ -78,8 +81,18 @@ const OneIdo = ({ contractAddress }) => {
     }
 
     const handleWithdrawl = async () => {
-        await TokenContract.methods.claimTokens().send({ from: account });
+        await IDOContract.methods.claimTokens().send({ from: account });
 
+    }
+
+    const calculateToken = async (value) => {
+        // const amount = parseInt(value) * 10 ** 18;
+        console.log(account, "handleDepositAmount")
+        // const finalAmount = value.toString();
+        // const tokensFetch = await IDOContract.methods.calculateToken(finalAmount).call();
+        const tokensFetch = parseInt(value)*(Ido?.price/10**18)
+        // const finalToken = new BigNumber(tokensFetch).toNumber() / 10 ** 18;
+        settokens(tokensFetch.toString());
     }
 
     const dispatch = useDispatch()
@@ -150,7 +163,7 @@ const OneIdo = ({ contractAddress }) => {
                 <CardBody>
                     <Cards>
                         <div style={{ marginTop: "30px" }}>
-                            <Progress primaryStep={Ido?.userData?.contribution / Ido?.totalRaised} />
+                            <Progress primaryStep={(Ido?.totalRaised / Ido?.target) * 100} />
                             {account && Ido?.idoSettled &&
                                 <Flex mb="10px" style={{ width: "100%" }}>
                                     <Text style={{ width: "50%" }}>
@@ -166,7 +179,11 @@ const OneIdo = ({ contractAddress }) => {
 
                             }
                             {/* {currentMillis} */}
-                            {account && <Input style={{ marginTop: "20px" }} placeholder="Enter Value To Invest" onChange={(e) => { setinputValue(e.target.value) }} />}
+                            {account && <Input style={{ marginTop: "20px" }} placeholder="Enter Value To Invest" onChange={(e) => { setinputValue(e.target.value); calculateToken(e.target.value)}} />}
+                            {/* {tokens && <div>
+                                you will get {tokens} amount of tokens by {inputValue} {Ido?.buyingTokenSymbol}
+                            </div>
+                            } */}
                             {account && Ido?.userData?.allowance.toString() !== "0" && <Button mt="30px" fullWidth onClick={() => {
                                 if (Ido?.idoSettled) {
                                     handleWithdrawl()
@@ -184,22 +201,22 @@ const OneIdo = ({ contractAddress }) => {
                             }
                         </div>
                         <div>
-                            {/* <Flex mb="10px" style={{ width: "100%" }}>
-                                    <Text style={{ width: "50%" }}>
-                                        For Sale
-                                    </Text>
-                                    <GetImage img={singleIDO.productLogo} height="100px" />
-                                    <Heading style={{ marginLeft: "auto" }}>
-                                        -
-                                    </Heading>
-                                </Flex> */}
+                            <Flex mb="10px" style={{ width: "100%" }}>
+                                <Text style={{ width: "50%" }}>
+                                    Price
+                                </Text>
+                                {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
+                                <Heading style={{ marginLeft: "auto" }}>
+                                    {Ido?.price / 10 ** 18}
+                                </Heading>
+                            </Flex>
                             <Flex mb="10px" style={{ width: "100%" }}>
                                 <Text style={{ width: "50%" }}>
                                     To Raise
                                 </Text>
                                 {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
                                 <Heading style={{ marginLeft: "auto" }}>
-                                    {Ido?.userData?.contribution}
+                                    {Ido?.target}
                                 </Heading>
                             </Flex>
                             {/* <Flex mb="10px" style={{ width: "100%" }}>
@@ -226,7 +243,7 @@ const OneIdo = ({ contractAddress }) => {
                                 </Text>
                                 {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
                                 <Heading style={{ marginLeft: "auto" }}>
-                                    {Ido?.userData?.contribution}
+                                    {Ido?.userData?.contribution / 10 ** 18}
                                 </Heading>
                             </Flex>
                             <Flex mb="10px" style={{ width: "100%" }}>
