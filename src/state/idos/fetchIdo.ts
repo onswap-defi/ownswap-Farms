@@ -52,6 +52,11 @@ const fetchIdo = async () => {
           name: 'idoSettled',
           params: [],
         },
+        {
+          address: farmConfig.contractAddress,
+          name: 'nextClaim',
+          params: [],
+        },
       ]
 
       const [
@@ -61,7 +66,8 @@ const fetchIdo = async () => {
         price,
         paymentToken,
         raisedTotal,
-        idoSettled
+        idoSettled,
+        nextClaim
       ] = await multicall(idoAbi, calls)
 
       console.log(projectURI, startDate, paymentToken[0], "metadata");
@@ -80,12 +86,14 @@ const fetchIdo = async () => {
       obj.endDate = new BigNumber(endDate).toNumber()
       obj.totalRaised = new BigNumber(raisedTotal).toNumber()
       obj.idoSettled = idoSettled[0];
+      obj.nextClaim = new BigNumber(nextClaim).toNumber()
       const call = [
         {
           address:paymentToken[0],
           name:"symbol",
           params: [],
-        }
+        },
+        
       ]
 
       const [symbol] = await multicall(erc20,call);

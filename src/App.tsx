@@ -35,8 +35,6 @@ const App: React.FC = () => {
     if (!account && window.localStorage.getItem('accountStatus')) {
       connect('injected')
     }
-   
-
   }, [account, connect])
 
   useFetchPublicData()

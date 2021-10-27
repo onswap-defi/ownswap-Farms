@@ -5,6 +5,7 @@ import { ethers } from 'ethers'
 import { provider } from 'web3-core'
 import { useIdoFromContract, useIDOs } from 'state/hooks'
 import erc20 from 'config/abi/erc20.json'
+import idoAbi from 'config/abi/ido.json'
 import { CardBody, Card, BaseLayout, Heading, Flex, Text, Button, Progress, Input } from '@pancakeswap-libs/uikit'
 import styled from 'styled-components'
 import Page from 'components/layout/Page'
@@ -16,6 +17,7 @@ import { fetchIDOUserDataASYNC } from 'state/idos'
 import { useWallet } from '@binance-chain/bsc-use-wallet'
 import UnlockButton from 'components/UnlockButton'
 import { getContract } from 'utils/web3'
+import { approve } from 'utils/callHelpers'
 
 
 
@@ -45,7 +47,7 @@ ${({ theme }) => theme.mediaQueries.lg} {
 const OneIdo = ({ contractAddress }) => {
 
     const Ido = useIdoFromContract(contractAddress);
-
+    const [inputValue, setinputValue] = useState("");
 
 
     // console.log(contractAddress);
@@ -53,17 +55,31 @@ const OneIdo = ({ contractAddress }) => {
     const { account, ethereum }: { account: string; ethereum: provider } = useWallet()
 
     const BuyingTokenContract = getContract(erc20, Ido.buyingToken);
-
-    console.log(account,ethereum, "contract");
+    const TokenContract = getContract(idoAbi, Ido.contractAddress);
+    console.log(account, ethereum, "contract");
 
 
     const handleApproval = async () => {
-        console.log(account.toLowerCase(), Ido.contractAddress, "account")
-        if (account && BuyingTokenContract) {
-            BuyingTokenContract.methods
-                .approve(Ido.contractAddress, "10000000000000000000000000000000000000000")
-                .send({ from: account })
+        console.log(account.toLowerCase(), Ido.contractAddress, BuyingTokenContract, "account");
+        const tx = await approve(BuyingTokenContract, TokenContract, account);
+        console.log(tx, "transaction")
+    }
+
+
+    const handledepositAmount = async () => {
+        if (inputValue) {
+            const amount = parseInt(inputValue) * 10 ** 18;
+            const finalAmount = amount.toString();
+            await TokenContract.methods.buyToken(finalAmount).send({ from: account });
         }
+        else {
+            alert("Enter Input Value")
+        }
+    }
+
+    const handleWithdrawl = async () => {
+        await TokenContract.methods.claimTokens().send({ from: account });
+
     }
 
     const dispatch = useDispatch()
@@ -134,10 +150,31 @@ const OneIdo = ({ contractAddress }) => {
                 <CardBody>
                     <Cards>
                         <div style={{ marginTop: "30px" }}>
-                            <Progress />
+                            <Progress primaryStep={Ido?.userData?.contribution / Ido?.totalRaised} />
+                            {account && Ido?.idoSettled &&
+                                <Flex mb="10px" style={{ width: "100%" }}>
+                                    <Text style={{ width: "50%" }}>
+                                        Next Claim
+                                    </Text>
+                                    {/* <GetImage img={singleIDO.productLogo} height="100px" /> */}
+                                    <Heading style={{ marginLeft: "auto" }}>
+                                        {
+                                            Ido?.nextClaim
+                                        }
+                                    </Heading>
+                                </Flex>
+
+                            }
                             {/* {currentMillis} */}
-                            <Input style={{ marginTop: "20px" }} placeholder="Enter Value To Invest" />
-                            {account && Ido?.userData?.allowance.toString() !== "0" && <Button mt="30px" fullWidth onClick={() => handleApproval()}>
+                            {account && <Input style={{ marginTop: "20px" }} placeholder="Enter Value To Invest" onChange={(e) => { setinputValue(e.target.value) }} />}
+                            {account && Ido?.userData?.allowance.toString() !== "0" && <Button mt="30px" fullWidth onClick={() => {
+                                if (Ido?.idoSettled) {
+                                    handleWithdrawl()
+                                } else {
+                                    handledepositAmount()
+                                }
+                            }
+                            }>
                                 {Ido?.idoSettled ? "Withdraw" : "Deposit"}
                             </Button>}
                             {account && Ido?.userData?.allowance.toString() === "0" && <Button mt="30px" fullWidth onClick={() => handleApproval()}>

@@ -80,7 +80,7 @@ const Idos = () => {
                 </Flex>
 
                 <div style={{ marginBottom: "20px" }}>
-                  <Progress />
+                  <Progress primaryStep={singleIDO?.totalRaised / singleIDO?.totalRaised} />
                 </div>
                 <Flex mb="10px" style={{ width: "100%" }}>
                   <Heading style={{ marginRight: "auto" }}>

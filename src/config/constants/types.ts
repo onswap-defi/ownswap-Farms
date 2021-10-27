@@ -74,6 +74,7 @@ export interface IDOConfig {
   buyingTokenSymbol?:string
   totalRaised?:number
   idoSettled?:boolean
+  nextClaim?:string
   socialMedia?: {
     telegram?: string
     facebook?: string
