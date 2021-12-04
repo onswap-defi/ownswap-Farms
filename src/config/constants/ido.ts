@@ -16,7 +16,26 @@ const idos: IDOConfig[] = [
         buyingToken: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
         
     },
-    // {
+    {
+        contractAddress: "0x4B14Fb4D91e70AE39c03fbD4DC8BA8cFe715786d",
+        tokenAddress: "0xc269204a6a159fbc1c6a24e82473d2c96d52bdf3",
+        buyingToken: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
+        
+    },
+    {
+        contractAddress: "0xcF7077d5fF9D221E9AE79a9c821d5DEc321D1FCA",
+        tokenAddress: "0xc269204a6a159fbc1c6a24e82473d2c96d52bdf3",
+        buyingToken: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
+        
+    },
+    {
+        contractAddress: "0xc2A0441830Fb11817825BDa96298C837a7C8Fd2F",
+        tokenAddress: "0xc269204a6a159fbc1c6a24e82473d2c96d52bdf3",
+        buyingToken: "0xed24fc36d5ee211ea25a80239fb8c4cfd80f12ee",
+        
+    },
+    //
+    //  {
     //     startDate: moment().format("YYYY-DD-MM"),
     //     endDate: moment().format("YYYY-DD-MM"),
     //     productName: "trail2",
